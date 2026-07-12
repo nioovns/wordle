@@ -1,38 +1,45 @@
 from termcolor import colored
 import random
 
-dic = ['hello', 'world', 'piano', 'train', 'brave', 'roast',
+
+words = ['hello', 'world', 'piano', 'train', 'brave', 'roast',
        'ocean', 'stone', 'plant', 'audio', 'about', 'happy', 'alive']
-result = [0] * 5
 ROUND = 5
 WON = False
-answer = random.choice(dic)
+answer = random.choice(words)
+WORD_LENGTH = len(answer)
+result = [0] * WORD_LENGTH
+
+def get_input():
+    guess = input("enter your guess: ").strip().lower()
+    while len(guess) != WORD_LENGTH:
+        print(f"the word must have {WORD_LENGTH} letters!")
+        guess = input("try again: ").strip().lower()
+    return guess
 
 while(ROUND != 0):
-    in1 = input("enter your guess: ").strip().lower()
-    while len(in1) != 5:
-        print("the word must have 5 letters!")
-        in1 = input("try again: ").strip().lower()
+    
+    guess = get_input()
        
-    for i in range(5):
-        if in1[i] == answer[i]:
+    for i in range(WORD_LENGTH):
+        if guess[i] == answer[i]:
             result[i] = 1
-        elif in1[i] in answer:
+        elif guess[i] in answer:
             result[i] = 2
         else:
             result[i] = 0
 
-    for i in range(5):
+    for i in range(WORD_LENGTH):
         if result[i] == 1:
-            print(colored(in1[i], "green"), end="")
+            print(colored(guess[i], "green"), end="")
         elif result[i] == 2:
-            print(colored(in1[i], "yellow"), end="")
+            print(colored(guess[i], "yellow"), end="")
         else:
-            print(colored(in1[i], "red"), end="")
+            print(colored(guess[i], "red"), end="")
     
     ROUND-=1
     print("\n")
-    if in1 == answer:
+    if guess == answer:
         print(colored('YOU WON!!!', "green"))
         WON = True
         break

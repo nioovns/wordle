@@ -4,11 +4,10 @@ import random
 
 words = ['hello', 'world', 'piano', 'train', 'brave', 'roast',
        'ocean', 'stone', 'plant', 'audio', 'about', 'happy', 'alive']
-ROUND = 5
-WON = False
+rounds = 5
+won = False
 answer = random.choice(words)
 WORD_LENGTH = len(answer)
-result = [0] * WORD_LENGTH
 
 def get_input():
     guess = input("enter your guess: ").strip().lower()
@@ -17,17 +16,22 @@ def get_input():
         guess = input("try again: ").strip().lower()
     return guess
 
-while(ROUND != 0):
-    
-    guess = get_input()
-       
+def check_guess(guess: str, answer: str):
+    result = [0] * WORD_LENGTH
+
     for i in range(WORD_LENGTH):
         if guess[i] == answer[i]:
             result[i] = 1
         elif guess[i] in answer:
             result[i] = 2
-        else:
-            result[i] = 0
+
+    return result
+        
+while(rounds != 0):
+    
+    guess = get_input()
+    result = check_guess(guess, answer)   
+    
 
     for i in range(WORD_LENGTH):
         if result[i] == 1:
@@ -37,12 +41,12 @@ while(ROUND != 0):
         else:
             print(colored(guess[i], "red"), end="")
     
-    ROUND-=1
+    rounds-=1
     print("\n")
     if guess == answer:
-        print(colored('YOU WON!!!', "green"))
-        WON = True
+        print(colored('YOU won!!!', "green"))
+        won = True
         break
     
-if not WON:
+if not won:
     print(colored(f"YOU LOSE!!! Answer was '{answer}'", "red"))        

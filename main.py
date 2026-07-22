@@ -36,11 +36,23 @@ def get_input():
 def check_guess(guess: str, answer: str):
     result = [0] * len(answer)
 
+    # for i in range(len(answer)):
+    #     if guess[i] == answer[i]:
+    #         result[i] = 1
+    #     elif guess[i] in answer:
+    #         result[i] = 2
+    answer_chars = list(answer)
+
+    # مرحله اول: حروف درست و جای درست
     for i in range(len(answer)):
         if guess[i] == answer[i]:
             result[i] = 1
-        elif guess[i] in answer:
+            answer_chars[i] = None
+        # مرحله دوم: حروف درست ولی جای اشتباه
+    for i in range(len(answer)):
+        if result[i] == 0 and guess[i] in answer_chars:
             result[i] = 2
+            answer_chars[answer_chars.index(guess[i])] = None
 
     return result
 

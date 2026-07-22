@@ -26,6 +26,29 @@ if not words:
     
 answer = random.choice(words)
 
+def choose_language():
+    print("1. english")
+    print("2. persian")
+
+    choice = input("> ")
+
+    if choice == "1":
+        return "english"
+    elif choice == "2":
+        return "persian"
+    else:
+        print("Invalid choice!")
+        return choose_language()
+
+def choose_length():
+    length = input("Choose word length (3-6): ")
+
+    while length not in ["3", "4", "5", "6"]:
+        print("Choose between 3 and 6")
+        length = input("Choose word length: ")
+
+    return length
+
 def get_input():
     guess = input("enter your guess: ").strip().lower()
     while len(guess) != len(answer):
@@ -35,20 +58,13 @@ def get_input():
 
 def check_guess(guess: str, answer: str):
     result = [0] * len(answer)
-
-    # for i in range(len(answer)):
-    #     if guess[i] == answer[i]:
-    #         result[i] = 1
-    #     elif guess[i] in answer:
-    #         result[i] = 2
     answer_chars = list(answer)
 
-    # مرحله اول: حروف درست و جای درست
     for i in range(len(answer)):
         if guess[i] == answer[i]:
             result[i] = 1
             answer_chars[i] = None
-        # مرحله دوم: حروف درست ولی جای اشتباه
+
     for i in range(len(answer)):
         if result[i] == 0 and guess[i] in answer_chars:
             result[i] = 2

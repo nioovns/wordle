@@ -1,9 +1,9 @@
 
 class WordleGame:
     
-    def __init__(self, answer, rounds=5):
+    def __init__(self, answer):
         self.answer = answer
-        self.rounds = rounds
+        self.rounds = self.get_rounds(answer)
         self.won = False
 
     def check_guess(self, guess):
@@ -29,4 +29,6 @@ class WordleGame:
     
     def decrease_round(self):
         self.rounds -= 1
-        
+    
+    def get_rounds(self, answer):
+        return len(answer) + 1

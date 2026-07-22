@@ -69,7 +69,7 @@ game = WordleGame(answer)
 
 
 while game.rounds > 0:
-
+    print(f"you have {game.rounds} guesses left.")
     guess = get_input(answer)
 
     result = game.check_guess(guess)

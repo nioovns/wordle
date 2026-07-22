@@ -3,8 +3,6 @@ import random
 import json
 from json import JSONDecodeError
 
-# words = ['hello', 'world', 'piano', 'train', 'brave', 'roast',
-#        'ocean', 'stone', 'plant', 'audio', 'about', 'happy', 'alive']
 rounds = 5
 won = False
 
@@ -18,13 +16,6 @@ def load_words():
     except JSONDecodeError:
         print("words.json is empty!")
         return []
-
-words = load_words()
-if not words:
-    print("No words available.")
-    quit()
-    
-answer = random.choice(words)
 
 def choose_language():
     print("1. english")
@@ -48,6 +39,23 @@ def choose_length():
         length = input("Choose word length: ")
 
     return length
+
+data = load_words()
+if not data:
+    print("No words available.")
+    quit()
+    
+language = choose_language()
+length = choose_length()
+words = []
+
+words = data.get(language, {}).get(length, [])
+
+if not words:
+    print("No words available.")
+    quit()
+
+answer = random.choice(words)
 
 def get_input():
     guess = input("enter your guess: ").strip().lower()

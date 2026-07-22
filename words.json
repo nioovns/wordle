@@ -1,15 +1,38 @@
-[
-    "hello",
-    "world",
-    "piano",
-    "train",
-    "brave",
-    "roast",
-    "ocean",
-    "stone",
-    "plant",
-    "audio",
-    "about",
-    "happy",
-    "alive"
-]
+{
+    "english": {
+        "3": [
+            "cat",
+            "dog",
+            "sun"
+        ],
+        "4": [
+            "book",
+            "tree"
+        ],
+        "5": [
+            "hello",
+            "world",
+            "plant",
+            "train",
+            "brain"
+        ],
+        "6": [
+            "planet",
+            "friend"
+        ]
+    },
+    "persian": {
+        "3": [
+            "باد",
+            "ماه"
+        ],
+        "4": [
+            "خانه",
+            "کتاب"
+        ],
+        "5": [
+            "دریا",
+            "بهار"
+        ]
+    }
+}

@@ -1,11 +1,29 @@
 from termcolor import colored
 import random
+import json
+from json import JSONDecodeError
 
-
-words = ['hello', 'world', 'piano', 'train', 'brave', 'roast',
-       'ocean', 'stone', 'plant', 'audio', 'about', 'happy', 'alive']
+# words = ['hello', 'world', 'piano', 'train', 'brave', 'roast',
+#        'ocean', 'stone', 'plant', 'audio', 'about', 'happy', 'alive']
 rounds = 5
 won = False
+
+def load_words():
+    try:
+        with open("words.json", "r") as file:
+            return json.load(file)
+    except FileNotFoundError:
+        print("words.json not found!")
+        return []
+    except JSONDecodeError:
+        print("words.json is empty!")
+        return []
+
+words = load_words()
+if not words:
+    print("No words available.")
+    quit()
+    
 answer = random.choice(words)
 
 def get_input():

@@ -1,21 +1,7 @@
 from termcolor import colored
 import random
-import json
-from json import JSONDecodeError
-
-rounds = 5
-won = False
-
-def load_words():
-    try:
-        with open("words.json", "r") as file:
-            return json.load(file)
-    except FileNotFoundError:
-        print("words.json not found!")
-        return []
-    except JSONDecodeError:
-        print("words.json is empty!")
-        return []
+from game import WordleGame
+from utils import load_words
 
 def choose_language():
     print("1. english")
@@ -40,45 +26,12 @@ def choose_length():
 
     return length
 
-data = load_words()
-if not data:
-    print("No words available.")
-    quit()
-    
-language = choose_language()
-length = choose_length()
-words = []
-
-words = data.get(language, {}).get(length, [])
-
-if not words:
-    print("No words available.")
-    quit()
-
-answer = random.choice(words)
-
-def get_input():
+def get_input(answer):
     guess = input("enter your guess: ").strip().lower()
     while len(guess) != len(answer):
         print(f"the word must have {len(answer)} letters!")
         guess = input("try again: ").strip().lower()
     return guess
-
-def check_guess(guess: str, answer: str):
-    result = [0] * len(answer)
-    answer_chars = list(answer)
-
-    for i in range(len(answer)):
-        if guess[i] == answer[i]:
-            result[i] = 1
-            answer_chars[i] = None
-
-    for i in range(len(answer)):
-        if result[i] == 0 and guess[i] in answer_chars:
-            result[i] = 2
-            answer_chars[answer_chars.index(guess[i])] = None
-
-    return result
 
 def show_result(guess: str, result):
     for i in range(len(guess)):
@@ -95,14 +48,35 @@ def show_end(won: bool, answer: str):
     else:
         print(colored(f"YOU LOSE!!! Answer was '{answer}'", "red"))
         
-while(rounds != 0): 
-    guess = get_input()
-    result = check_guess(guess, answer)   
-    show_result(guess, result)
-    rounds-=1
-    print("\n")
-    if guess == answer:
-        won = True
-        break
+
+
+data = load_words()
+if not data:
+    print("No words available.")
+    quit()
     
-show_end(won, answer)
+language = choose_language()
+length = choose_length()
+words = data.get(language, {}).get(length, [])
+
+if not words:
+    print("No words available.")
+    quit()
+
+answer = random.choice(words)
+
+game = WordleGame(answer)
+
+
+while game.rounds > 0:
+
+    guess = get_input(answer)
+
+    result = game.check_guess(guess)
+    show_result(guess, result)
+    print("\n")
+    if game.is_won(guess):
+        break
+    game.decrease_round()
+    
+show_end(game.won, answer)

@@ -4,21 +4,36 @@ A simple Wordle-like game written in Python.
 
 ## Features
 
-- Terminal based gameplay
-- Random word selection
-- Color feedback:
-  - Green: correct letter and position
-  - Yellow: correct letter, wrong position
+- Terminal-based gameplay
+- Random word selection from JSON
+- language selection
+- Word lengths from 3 to 6 letters
+- Dynamic number of attempts based on word length
+- Correct duplicate-letter handling
+- Colored feedback
+  - Green: correct letter in the correct position
+  - Yellow: correct letter in the wrong position
   - Red: letter not found
-- Limited attempts
 
 ## Future Improvements
 
-- Persian/English language support
-- Different word lengths
-- Better duplicate letter handling
+- Guess history
+- On-screen keyboard
+- Difficulty levels
+- Statistics (wins, losses, streak)
 - GUI version
 
+## Project Structure
+
+```
+wordle/
+├── main.py
+├── game.py
+├── utils.py
+├── words.json
+├── requirements.txt
+└── README.md
+```
 ## How to run
 
 ### Requirements
